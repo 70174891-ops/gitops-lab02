@@ -2,3 +2,4 @@ GitOps Student Project
 Version 1 
 Login feature implemented 
 Soft reset demonstration 
+Final GitOps lab test 
