@@ -1,0 +1,39 @@
+
+name: GitOps Deployment Simulation
+
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-simulation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Build deployment package
+        run: |
+          mkdir -p deploy-package
+          cp README.md deploy-package/
+          cp -r src deploy-package/
+          echo "Commit: $GITHUB_SHA" > deploy-package/deployment-info.txt
+          echo "Environment: lab" >> deploy-package/deployment-info.txt
+
+      - name: Show desired state
+        run: |
+          find deploy-package -maxdepth 3 -type f -print
+          cat deploy-package/deployment-info.txt
+
+      - name: Create deployment archive
+        run: tar -czf gitops-lab02.tar.gz deploy-package
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gitops-lab02-package
+          path: gitops-lab02.tar.gz
