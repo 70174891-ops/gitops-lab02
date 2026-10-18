@@ -1,3 +1,5 @@
 GitOps Student Project 
 Version 1 
 Login feature implemented 
+Temporary unfinished work 
+Commit to demonstrate recovery 
